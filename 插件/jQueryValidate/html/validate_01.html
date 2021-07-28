@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>validate</title>
+    <!-- <link rel="stylesheet" href="../css/demo-01.css"> -->
+    <style>
+        p {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="myForm" action="#">
+        <div class="username">
+            <p>用户名：</p><input name="username" type="text" autocomplete="off" minlength="6" required>
+        </div>
+        <div class="pwd1">
+            <p>密码：</p><input name="pwd1" type="password" id="pwd1" minlength="6" maxlength="18" required>
+        </div>
+        <div class="pwd2">
+            <p>确认密码：</p><input name="pwd2" type="password" id="pwd2" equalTo='#pwd1'>
+        </div>
+        <div class="submit">
+            <input type="submit" value="注册">
+        </div>
+    </form>
+    <script src="../lib/jquery-1.11.1.js"></script>
+    <script src="../dist/jquery.validate.js"></script>
+    <script>
+        // $('#myForm').validate()
+
+        /* 
+            声明各种验证规则，可以自定义验证错误信息
+        */
+        //对表单用户验证
+        $('#myForm').validate({
+            // messages 消息
+            messages: {
+                username: {
+                    required: '必须填写用户名',
+                    minlength: '用户名至少六位'
+                },
+                pwd1: {
+                    required: '必须填写密码',
+                    minlength: '密码至少6位',
+                    maxlength: '密码最大16位'
+
+                },
+                pwd2: {
+                    equalTo: '两次密码不一致'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

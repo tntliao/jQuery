@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>03_回到顶部</title>
+  <style>
+    .to_top {
+      width: 30px;
+      height: 40px;
+      font: 14px/20px arial;
+      text-align: center;
+      background: #06c;
+      position: fixed;
+      cursor: pointer;
+      color: #fff;
+      left: 1250px;
+      top: 500px;
+    }
+
+    #to_top2 {
+      width: 40px;
+      height: 40px;
+      font: 14px/20px arial;
+      text-align: center;
+      background: #06c;
+      position: fixed;
+      cursor: pointer;
+      color: #fff;
+      left: 1300px;
+      top: 500px;
+    }
+  </style>
+</head>
+
+<body style="height: 2000px;">
+
+  <div class="to_top">返回顶部</div>
+  <div id="to_top2">返回顶部2</div>
+
+  <script src="../../测试/js/jquery-1.10.1.js"></script>
+  <script>
+    var $to_top = $('.to_top');
+    // $to_top.click(function () {
+    //   clearInterval(timer);
+    //   var $page = $('html,body');
+    //   var scrollTop = $('html').scrollTop() + $('body').scrollTop();
+    //   var time = 600;
+    //   var step = 20;
+    //   var speed = scrollTop / (time / step);
+    //   var timer = setInterval(function () {
+    //     scrollTop = scrollTop - speed;
+    //     if (scrollTop <= 0) {
+    //       scrollTop = 0;
+    //       clearInterval(timer);
+    //     }
+    //     $page.scrollTop(scrollTop);
+    //     console.log(scrollTop);
+    //   }, step)
+    // });
+    var click = function () {
+      clearInterval(timer);
+      console.log(this);
+      var $page = $('html,body');
+      this.removeEventListener("click", click)
+      var scrollTop = $('html').scrollTop() + $('body').scrollTop();
+      var time = 600;
+      var step = 20;
+      var speed = scrollTop / (time / step);
+      var timer = setInterval(function () {
+        scrollTop = scrollTop - speed;
+        if (scrollTop <= 0) {
+          this.addEventListener("click", click)
+          scrollTop = 0;
+          clearInterval(timer);
+        }
+        $page.scrollTop(scrollTop);
+        console.log(scrollTop);
+      }, step)
+    };
+
+    $to_top.get(0).addEventListener("click", click)
+
+
+    var moving = false
+    $('#to_top2').click(function () {
+      if (moving === true) {
+        return
+      }
+      moving = true
+      //总距离
+      var $page = $('html,body');
+      var distance = $('html').scrollTop() + $('body').scrollTop();
+      //总时间
+      var time = 500;
+      //间隔时间
+      var intervalTime = 50;
+      var itemDistance = distance / (time / intervalTime);
+      //使用循环定时器不断滚动
+      var intervalId = setInterval(function () {
+        distance -= itemDistance;
+        //到达顶部，停止定时器
+        if (distance <= 0) {
+          scrollTop = 0;  //修正
+          clearInterval(intervalId);
+          moving = false
+        }
+        $page.scrollTop(distance);
+      }, intervalTime)
+    })
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>添加删除记录练习</title>
+  <link rel="stylesheet" type="text/css" href="css.css" />
+</head>
+
+<body>
+
+  <table id="employeeTable">
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Salary</th>
+      <th>&nbsp;</th>
+    </tr>
+    <tr>
+      <td>Tom</td>
+      <td>tom@tom.com</td>
+      <td>5000</td>
+      <td><a href="deleteEmp?id=001">Delete</a></td>
+    </tr>
+    <tr>
+      <td>Jerry</td>
+      <td>jerry@sohu.com</td>
+      <td>8000</td>
+      <td><a href="deleteEmp?id=002">Delete</a></td>
+    </tr>
+    <tr>
+      <td>Bob</td>
+      <td>bob@tom.com</td>
+      <td>10000</td>
+      <td><a href="deleteEmp?id=003">Delete</a></td>
+    </tr>
+
+  </table>
+
+  <div id="formDiv">
+
+    <h4>添加新员工</h4>
+
+    <table>
+      <tr>
+        <td class="word">name:</td>
+        <td class="inp">
+          <input type="text" name="empName" id="empName" />
+        </td>
+      </tr>
+      <tr>
+        <td class="word">email:</td>
+        <td class="inp">
+          <input type="text" name="email" id="email" />
+        </td>
+      </tr>
+      <tr>
+        <td class="word">salary:</td>
+        <td class="inp">
+          <input type="text" name="salary" id="salary" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center">
+          <button id="addEmpButton" value="abc">
+            Submit
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <script src="../../课件/jQuery库/jquery-1.10.1.js"></script>
+  <script>
+    var index = 3;
+    $('#addEmpButton').click(function () {
+      index++;
+      var $empName = $('#empName');
+      var $email = $('#email');
+      var $salary = $('#salary');
+
+      var empName = $empName.val();
+      var email = $email.val();
+      var salary = $salary.val();
+      console.log(empName);
+
+      if (empName != '' && email != '' && salary != '') {
+        var aa = $('<tr></tr>')
+          .append('<td>' + empName + '</td>')
+          .append('<td>' + email + '</td>')
+          .append('<td>' + salary + '</td>')
+          .append('<td><a href="deleteEmp?id=' + index + '">Delete</a></td>')
+          .appendTo('#employeeTable > tbody')
+        //正在处理的元素
+        // .find('a').click(alla)
+
+      } else {
+        index--;
+        return alert('The input information is not correct')
+      }
+
+      $empName.val('');
+      $email.val('');
+      $salary.val('');
+    })
+
+    function alla(event) {
+      var $tr = $(this).parent().parent();
+      var name = $tr.children().first().html();
+      if (confirm('你确定要删除' + name + '吗?')) {
+        $tr.remove();
+      }
+      //取消默认行为
+      event.preventDefault();
+
+      // return false
+    }
+    // $('#employeeTable a').click(alla)
+
+    //事件委派
+    $('#employeeTable').delegate('a', 'click', alla)
+
+  </script>
+</body>
+
+</html>

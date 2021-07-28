@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./laydate/laydate.js"></script>
+    <title>laydate</title>
+</head>
+
+<body>
+    <input placeholder="请输入日期" class="laydate-icon" onclick="laydate()">
+    <input class="laydate-icon" id="demo" value=''>
+    <script>
+        document.getElementById('demo').value = new Date().getFullYear()
+        laydate({
+            elem: '#demo'
+        })
+    </script>
+</body>
+
+</html>
